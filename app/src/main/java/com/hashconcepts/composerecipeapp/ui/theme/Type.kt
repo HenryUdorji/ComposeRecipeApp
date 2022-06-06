@@ -17,9 +17,16 @@ val gilroy = FontFamily(
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
-        fontFamily = FontFamily.Default,
+        fontFamily = gilroy,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp
+        fontSize = 16.sp,
+        color = Black
+    ),
+    h1 = TextStyle(
+        fontFamily = gilroy,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 30.sp,
+        color = White
     )
     /* Other default text styles to override
     button = TextStyle(

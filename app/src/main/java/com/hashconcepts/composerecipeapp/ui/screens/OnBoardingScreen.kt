@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +23,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.data.OnBoardingItem
 import com.hashconcepts.composerecipeapp.data.onBoardingData
 import com.hashconcepts.composerecipeapp.data.provideOnBoardingData
@@ -41,6 +43,12 @@ import com.hashconcepts.composerecipeapp.ui.theme.White
 @Composable
 fun OnBoardingScreen(navController: NavController) {
     val pagerState = rememberPagerState(0)
+    val systemUiController = rememberSystemUiController()
+
+    SideEffect {
+        systemUiController.setNavigationBarColor(color = OnBoardingBG)
+        systemUiController.setStatusBarColor(color = OnBoardingBG)
+    }
 
     Box(
         modifier = Modifier

@@ -39,7 +39,7 @@ fun RoundedCornerButton(
         modifier = Modifier
             .padding(15.dp)
             .fillMaxWidth()
-            .height(80.dp)
+            .height(70.dp)
             .clip(RoundedCornerShape(15.dp))
             .background(Red)
             .clickable(onClick = onClick)

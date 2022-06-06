@@ -3,5 +3,6 @@
 
     <style name="Theme.ComposeRecipeApp" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/white</item>
+<!--        <item name="android:navigationBarColor">@color/onboarding_bg</item>-->
     </style>
 </resources>

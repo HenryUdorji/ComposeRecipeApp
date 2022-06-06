@@ -27,7 +27,7 @@ fun OnBoardingIndicator(
 fun Indicator(currentPosition: Int, position: Int, ) {
     Box(
         modifier = Modifier
-            .width(70.dp)
+            .width(60.dp)
             .height(5.dp)
             .clip(RoundedCornerShape(5.dp))
             .background(if (currentPosition == position) White else InActiveIndicator)

@@ -76,8 +76,11 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_version"
 
+    //Accompanist
     //Pager
-    implementation "com.google.accompanist:accompanist-pager:0.24.10-beta"
+    implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
+    //System UI controller
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
 
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"

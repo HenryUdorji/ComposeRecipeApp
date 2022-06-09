@@ -1,9 +1,6 @@
-package com.hashconcepts.composerecipeapp.data.remote.dto
+package com.hashconcepts.composerecipeapp.data.remote.dto.category
 
-import androidx.annotation.Keep
-
-@Keep
-data class CategoryDto(
+data class Category(
     val idCategory: String,
     val strCategory: String,
     val strCategoryDescription: String,

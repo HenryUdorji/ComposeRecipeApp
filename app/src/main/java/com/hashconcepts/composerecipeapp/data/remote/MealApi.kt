@@ -1,8 +1,8 @@
 package com.hashconcepts.composerecipeapp.data.remote
 
-import com.hashconcepts.composerecipeapp.data.remote.dto.CategoryDto
-import com.hashconcepts.composerecipeapp.data.remote.dto.MealCategoryDto
-import com.hashconcepts.composerecipeapp.data.remote.dto.MealDetailDto
+import com.hashconcepts.composerecipeapp.data.remote.dto.category.MealCategoriesDto
+import com.hashconcepts.composerecipeapp.data.remote.dto.details.MealDetailsDto
+import com.hashconcepts.composerecipeapp.data.remote.dto.mealByCategory.MealByCategoryDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -14,11 +14,11 @@ import retrofit2.http.Query
 interface MealApi {
 
     @GET("lookup.php")
-    suspend fun fetchMealDetail(@Query("i") i: Int): List<MealDetailDto>
+    suspend fun fetchMealDetail(@Query("i") id: Int): MealDetailsDto
 
     @GET("categories.php")
-    suspend fun fetchMealCategories(): List<CategoryDto>
+    suspend fun fetchMealCategories(): MealCategoriesDto
 
     @GET("filter.php")
-    suspend fun filterMealsByCategory(@Query("c") c: String): List<MealCategoryDto>
+    suspend fun filterMealsByCategory(@Query("c") category: String): MealByCategoryDto
 }

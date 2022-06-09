@@ -1,6 +1,7 @@
 package com.hashconcepts.composerecipeapp.ui.screens.home
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.hashconcepts.composerecipeapp.ui.MainViewModel
 
@@ -11,5 +12,10 @@ import com.hashconcepts.composerecipeapp.ui.MainViewModel
  */
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun HomeScreen(
+    navController: NavController,
+    viewModel: MainViewModel = hiltViewModel()
+) {
+
+    viewModel.fetchMealCategories()
 }

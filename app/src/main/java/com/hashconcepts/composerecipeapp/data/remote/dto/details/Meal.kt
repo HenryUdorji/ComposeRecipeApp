@@ -1,9 +1,6 @@
-package com.hashconcepts.composerecipeapp.data.remote.dto
+package com.hashconcepts.composerecipeapp.data.remote.dto.details
 
-import androidx.annotation.Keep
-
-@Keep
-data class MealDetailDto(
+data class Meal(
     val dateModified: String?,
     val idMeal: String,
     val strArea: String,

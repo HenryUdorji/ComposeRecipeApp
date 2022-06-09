@@ -8,23 +8,26 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.hashconcepts.composerecipeapp.R
 
-val gilroy = FontFamily(
+val poppins = FontFamily(
     listOf(
-        Font(R.font.gilroy_light, FontWeight.Light),
-        Font(R.font.gilroy_extra_bold, FontWeight.ExtraBold)
+        Font(R.font.poppins_light, FontWeight.Light),
+        Font(R.font.poppins_regular, FontWeight.Normal),
+        Font(R.font.poppins_medium, FontWeight.Medium),
+        Font(R.font.poppins_bold, FontWeight.Bold)
     )
 )
+
 // Set of Material typography styles to start with
 val Typography = Typography(
     body1 = TextStyle(
-        fontFamily = gilroy,
+        fontFamily = poppins,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         color = Black
     ),
     h1 = TextStyle(
-        fontFamily = gilroy,
-        fontWeight = FontWeight.ExtraBold,
+        fontFamily = poppins,
+        fontWeight = FontWeight.Bold,
         fontSize = 30.sp,
         color = White
     )

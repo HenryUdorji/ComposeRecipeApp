@@ -1,4 +1,4 @@
-package com.hashconcepts.composerecipeapp.ui.screens
+package com.hashconcepts.composerecipeapp.ui.screens.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -7,31 +7,29 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
-import com.google.accompanist.pager.PagerState
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.hashconcepts.composerecipeapp.data.OnBoardingItem
 import com.hashconcepts.composerecipeapp.data.onBoardingData
-import com.hashconcepts.composerecipeapp.data.provideOnBoardingData
+import com.hashconcepts.composerecipeapp.ui.MainViewModel
 import com.hashconcepts.composerecipeapp.ui.components.OnBoardingIndicator
 import com.hashconcepts.composerecipeapp.ui.components.RoundedCornerButton
 import com.hashconcepts.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import com.hashconcepts.composerecipeapp.ui.theme.OnBoardingBG
 import com.hashconcepts.composerecipeapp.ui.theme.White
+import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 
 /**
  * @created 06/06/2022 - 3:12 PM
@@ -41,7 +39,10 @@ import com.hashconcepts.composerecipeapp.ui.theme.White
 
 @OptIn(ExperimentalPagerApi::class)
 @Composable
-fun OnBoardingScreen(navController: NavController) {
+fun OnBoardingScreen(
+    navController: NavController,
+    viewModel: MainViewModel = hiltViewModel()
+) {
     val pagerState = rememberPagerState(0)
     val systemUiController = rememberSystemUiController()
 
@@ -68,7 +69,9 @@ fun OnBoardingScreen(navController: NavController) {
                 PagerItem(page)
             }
             RoundedCornerButton(text = "Get Started") {
-                //Todo -> Navigate to new screen
+                viewModel.onBoardingShown()
+                navController.popBackStack()
+                navController.navigate(Screens.HomeScreen.route)
             }
         }
     }

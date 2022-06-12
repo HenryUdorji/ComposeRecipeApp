@@ -18,17 +18,17 @@ fun provideOnBoardingData(): List<OnBoardingItem> {
     return listOf(
         OnBoardingItem(
             image = R.drawable.buger,
-            mainTitle = "Grab your Delicious food!",
+            mainTitle = "Grab your \nDelicious food!",
             subTitle = "Delivery food on your phone"
         ),
         OnBoardingItem(
             image = R.drawable.sandwich,
-            mainTitle = "Grab your Delicious food!",
+            mainTitle = "Grab your \nDelicious food!",
             subTitle = "Delivery food on your phone"
         ),
         OnBoardingItem(
             image = R.drawable.pizza,
-            mainTitle = "Grab your Delicious food!",
+            mainTitle = "Grab your \nDelicious food!",
             subTitle = "Delivery food on your phone"
         )
     )

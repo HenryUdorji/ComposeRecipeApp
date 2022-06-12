@@ -12,24 +12,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.data.onBoardingData
-import com.hashconcepts.composerecipeapp.ui.MainViewModel
 import com.hashconcepts.composerecipeapp.ui.components.OnBoardingIndicator
 import com.hashconcepts.composerecipeapp.ui.components.RoundedCornerButton
-import com.hashconcepts.composerecipeapp.ui.theme.ComposeRecipeAppTheme
+import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.theme.OnBoardingBG
 import com.hashconcepts.composerecipeapp.ui.theme.White
-import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 
 /**
  * @created 06/06/2022 - 3:12 PM
@@ -40,8 +35,8 @@ import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnBoardingScreen(
-    navController: NavController,
-    viewModel: MainViewModel = hiltViewModel()
+    actions: MainActions,
+    viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(0)
     val systemUiController = rememberSystemUiController()
@@ -70,8 +65,7 @@ fun OnBoardingScreen(
             }
             RoundedCornerButton(text = "Get Started") {
                 viewModel.onBoardingShown()
-                navController.popBackStack()
-                navController.navigate(Screens.HomeScreen.route)
+                actions.gotoHomeScreen
             }
         }
     }
@@ -115,10 +109,10 @@ fun PagerItem(page: Int) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun OnBoardScreenPreview() {
-    ComposeRecipeAppTheme {
-        OnBoardingScreen(rememberNavController())
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun OnBoardScreenPreview() {
+//    ComposeRecipeAppTheme {
+//        OnBoardingScreen()
+//    }
+//}

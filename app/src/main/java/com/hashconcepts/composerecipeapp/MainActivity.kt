@@ -16,8 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeRecipeAppTheme {
-                val navController = rememberNavController()
-                Navigation(navController)
+                Navigation()
             }
         }
     }
@@ -27,6 +26,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     ComposeRecipeAppTheme {
-        Navigation(rememberNavController())
+        Navigation()
     }
 }

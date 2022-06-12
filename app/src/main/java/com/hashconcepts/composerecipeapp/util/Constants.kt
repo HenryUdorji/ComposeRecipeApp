@@ -11,4 +11,5 @@ object Constants {
     const val ONBOARDING_ROUTE = "OnBoarding"
     const val HOME_ROUTE = "Home"
     const val DETAIL_ROUTE = "Detail"
+    const val VIEW_MORE_ROUTE = "ViewMore"
 }

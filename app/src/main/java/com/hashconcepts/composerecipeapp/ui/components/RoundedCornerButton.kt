@@ -50,10 +50,10 @@ fun RoundedCornerButton(
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun OnBoardScreenPreview() {
-    ComposeRecipeAppTheme {
-        RoundedCornerButton("Get Started"){}
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun OnBoardScreenPreview() {
+//    ComposeRecipeAppTheme {
+//        RoundedCornerButton("Get Started"){}
+//    }
+//}

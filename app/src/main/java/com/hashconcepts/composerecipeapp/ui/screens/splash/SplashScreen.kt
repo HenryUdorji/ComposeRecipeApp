@@ -6,6 +6,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Surface
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,6 +20,7 @@ import com.hashconcepts.composerecipeapp.R
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.screens.onboarding.OnBoardingViewModel
+import com.hashconcepts.composerecipeapp.ui.theme.Red
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -37,25 +39,31 @@ fun SplashScreen(
     LaunchedEffect(key1 = true) {
         delay(3000)
         if (!viewModel.showOnboarding) {
+            navController.popBackStack()
             navController.navigate(Screens.OnBoardingScreen.route)
         } else {
+            navController.popBackStack()
             navController.navigate(Screens.HomeScreen.route)
         }
     }
 
-    Surface(
-        modifier = Modifier
-            .fillMaxSize()
+    Box(
+        modifier = Modifier.fillMaxSize()
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Image(
-                modifier = Modifier.size(150.dp),
-                painter = painterResource(id = R.drawable.pizza),
-                contentDescription = "Logo"
-            )
-        }
+        Image(
+            modifier = Modifier
+                .size(150.dp)
+                .align(Alignment.Center),
+            painter = painterResource(id = R.drawable.pizza),
+            contentDescription = "Logo",
+        )
+        CircularProgressIndicator(
+            color = Red,
+            modifier = Modifier
+                .size(15.dp)
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 20.dp),
+            strokeWidth = 2.dp
+        )
     }
 }

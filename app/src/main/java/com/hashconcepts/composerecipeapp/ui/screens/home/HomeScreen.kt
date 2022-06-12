@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -48,7 +49,7 @@ fun HomeScreen(
     val viewModel = hiltViewModel<HomeViewModel>()
     val homeScreenState = viewModel.mealCategoriesState.value
 
-    var selectedIndex by remember { mutableStateOf(0) }
+    var selectedIndex by remember { mutableStateOf(viewModel.savedPosition) }
 
     Box(
         modifier = Modifier
@@ -79,7 +80,9 @@ fun HomeScreen(
                 modifier = Modifier.padding(horizontal = 15.dp)
             )
 
+            val listState = rememberLazyListState()
             LazyRow(
+                state = listState,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 15.dp),
@@ -95,6 +98,8 @@ fun HomeScreen(
                         ),
                     ) { index ->
                         selectedIndex = index
+                        viewModel.savedPosition = selectedIndex
+
                         val selectedCategory = homeScreenState.mealCategories[selectedIndex].strCategory
                         viewModel.onAction(HomeScreenEvents.OnCategorySelected(selectedCategory))
                     }

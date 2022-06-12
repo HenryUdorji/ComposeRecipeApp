@@ -30,6 +30,8 @@ class HomeViewModel @Inject constructor(
     private val _mealsState = mutableStateOf(HomeScreenState())
     val mealsState: State<HomeScreenState> = _mealsState
 
+    var savedPosition = 0
+
     init {
         fetchMealCategories()
     }

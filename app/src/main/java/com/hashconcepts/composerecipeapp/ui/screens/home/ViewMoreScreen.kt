@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.ui.components.MealCategoryItem
 import com.hashconcepts.composerecipeapp.ui.components.MealItem
+import com.hashconcepts.composerecipeapp.ui.components.MealsGridSection
 import com.hashconcepts.composerecipeapp.ui.components.SearchBar
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.theme.*
@@ -35,7 +36,8 @@ import com.hashconcepts.composerecipeapp.ui.theme.*
 
 @Composable
 fun ViewMoreScreen(
-    actions: MainActions
+    actions: MainActions,
+    category: String
 ) {
     val systemUiController = rememberSystemUiController()
 
@@ -45,44 +47,35 @@ fun ViewMoreScreen(
     }
 
     val viewModel = hiltViewModel<HomeViewModel>()
-    val homeScreenState = viewModel.mealCategoriesState.value
 
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(OffWhite)
+            .padding(vertical = 15.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
             modifier = Modifier.fillMaxSize()
         ) {
             Text(
-                text = "Find Your \nDelicious Food",
+                text = category,
                 style = MaterialTheme.typography.body1,
                 color = Black,
                 fontSize = 25.sp,
-                modifier = Modifier.padding(15.dp)
+                modifier = Modifier.padding(horizontal = 15.dp)
             )
 
-            //MealsGridSection(category, viewModel)
-        }
-
-        if (homeScreenState.error.isNotBlank()) {
-            Text(
-                text = homeScreenState.error,
-                color = MaterialTheme.colors.error,
-                textAlign = TextAlign.Center,
+            Spacer(modifier = Modifier.height(10.dp))
+            
+            MealsGridSection(
+                category = category,
+                viewModel = viewModel,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-
-        if (homeScreenState.isLoading) {
-            CircularProgressIndicator(
-                color = Red,
-                modifier = Modifier.align(Alignment.Center)
+                    .weight(1f)
+                    .padding(0.dp),
+                actions = actions,
+                showSubList = false
             )
         }
     }

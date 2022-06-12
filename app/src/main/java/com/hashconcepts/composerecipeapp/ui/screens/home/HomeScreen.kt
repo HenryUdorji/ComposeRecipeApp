@@ -23,6 +23,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.ui.components.MealCategoryItem
 import com.hashconcepts.composerecipeapp.ui.components.MealItem
+import com.hashconcepts.composerecipeapp.ui.components.MealsGridSection
 import com.hashconcepts.composerecipeapp.ui.components.SearchBar
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.theme.*
@@ -46,6 +47,8 @@ fun HomeScreen(
 
     val viewModel = hiltViewModel<HomeViewModel>()
     val homeScreenState = viewModel.mealCategoriesState.value
+
+    var selectedIndex by remember { mutableStateOf(0) }
 
     Box(
         modifier = Modifier
@@ -76,7 +79,6 @@ fun HomeScreen(
                 modifier = Modifier.padding(horizontal = 15.dp)
             )
 
-            var selectedIndex by remember { mutableStateOf(0) }
             LazyRow(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -93,7 +95,6 @@ fun HomeScreen(
                         ),
                     ) { index ->
                         selectedIndex = index
-
                         val selectedCategory = homeScreenState.mealCategories[selectedIndex].strCategory
                         viewModel.onAction(HomeScreenEvents.OnCategorySelected(selectedCategory))
                     }
@@ -118,13 +119,24 @@ fun HomeScreen(
                     style = MaterialTheme.typography.h2,
                     fontSize = 15.sp,
                     color = Red,
-                    modifier = Modifier.clickable { }
+                    modifier = Modifier.clickable {
+                        val selectedCategory = homeScreenState.mealCategories[selectedIndex].strCategory
+                        if (selectedCategory.isNotEmpty()) {
+                            actions.gotoViewMoreScreen(selectedCategory)
+                        }
+                    }
                 )
             }
 
             if (homeScreenState.mealCategories.isNotEmpty()) {
-                val category = homeScreenState.mealCategories[selectedIndex].strCategory
-                MealsGridSection(category, viewModel)
+                val selectedCategory = homeScreenState.mealCategories[selectedIndex].strCategory
+                MealsGridSection(
+                    category = selectedCategory,
+                    viewModel = viewModel,
+                    modifier = Modifier.weight(1f),
+                    actions = actions,
+                    showSubList = true
+                )
             }
         }
 
@@ -141,63 +153,6 @@ fun HomeScreen(
         }
 
         if (homeScreenState.isLoading) {
-            CircularProgressIndicator(
-                color = Red,
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
-    }
-}
-
-
-@Composable
-fun ColumnScope.MealsGridSection(
-    category: String,
-    viewModel: HomeViewModel
-) {
-    val mealsState = viewModel.mealsState.value
-
-    LaunchedEffect(key1 = true) {
-        viewModel.filterMealsByCategory(category)
-    }
-
-    Box(
-        modifier = Modifier
-            .weight(1f)
-            .fillMaxWidth()
-            .padding(horizontal = 15.dp)
-    ) {
-        if (mealsState.mealByCategory.isNotEmpty()) {
-            LazyVerticalGrid(
-                verticalArrangement = Arrangement.spacedBy(20.dp),
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                columns = GridCells.Fixed(2),
-                content = {
-                    items(mealsState.mealByCategory.subList(0, 10)) { meal ->
-                        MealItem(
-                            meal = meal,
-                            onItemClick = {
-
-                            }
-                        )
-                    }
-                })
-
-        }
-
-        if (mealsState.mealsError.isNotBlank()) {
-            Text(
-                text = mealsState.error,
-                color = MaterialTheme.colors.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-
-        if (mealsState.mealsLoading) {
             CircularProgressIndicator(
                 color = Red,
                 modifier = Modifier.align(Alignment.Center)

@@ -12,4 +12,5 @@ object Constants {
     const val HOME_ROUTE = "Home"
     const val DETAIL_ROUTE = "Detail"
     const val VIEW_MORE_ROUTE = "ViewMore"
+    const val ARGS_CATEGORY = "category"
 }

@@ -48,17 +48,17 @@ fun MealItem(
                     .clip(RoundedCornerShape(20.dp))
                     .background(White)
             )
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = meal.strMeal,
-                style = MaterialTheme.typography.h2,
-                fontSize = 14.sp,
-                color = Black,
-                maxLines = 1,
-                textAlign = TextAlign.Start,
-                overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(horizontal = 15.dp)
-            )
+//            Spacer(modifier = Modifier.height(20.dp))
+//            Text(
+//                text = meal.strMeal,
+//                style = MaterialTheme.typography.h2,
+//                fontSize = 14.sp,
+//                color = Black,
+//                maxLines = 1,
+//                textAlign = TextAlign.Start,
+//                overflow = TextOverflow.Ellipsis,
+//                modifier = Modifier.padding(horizontal = 15.dp)
+//            )
         }
     }
 }

@@ -15,6 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -23,6 +24,7 @@ import com.hashconcepts.composerecipeapp.data.onBoardingData
 import com.hashconcepts.composerecipeapp.ui.components.OnBoardingIndicator
 import com.hashconcepts.composerecipeapp.ui.components.RoundedCornerButton
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
+import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.theme.OnBoardingBG
 import com.hashconcepts.composerecipeapp.ui.theme.White
 
@@ -35,7 +37,7 @@ import com.hashconcepts.composerecipeapp.ui.theme.White
 @OptIn(ExperimentalPagerApi::class)
 @Composable
 fun OnBoardingScreen(
-    actions: MainActions,
+    navController: NavHostController,
     viewModel: OnBoardingViewModel = hiltViewModel()
 ) {
     val pagerState = rememberPagerState(0)
@@ -65,7 +67,8 @@ fun OnBoardingScreen(
             }
             RoundedCornerButton(text = "Get Started") {
                 viewModel.onBoardingShown()
-                actions.gotoHomeScreen
+                navController.popBackStack()
+                navController.navigate(Screens.HomeScreen.route)
             }
         }
     }

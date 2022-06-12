@@ -1,4 +1,4 @@
-package com.hashconcepts.composerecipeapp.ui.components
+package com.hashconcepts.composerecipeapp.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,8 +16,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.hashconcepts.composerecipeapp.ui.components.MealItem
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
-import com.hashconcepts.composerecipeapp.ui.screens.home.HomeViewModel
+import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.theme.Red
 
 /**
@@ -30,7 +32,7 @@ fun MealsGridSection(
     modifier: Modifier = Modifier,
     category: String,
     viewModel: HomeViewModel,
-    actions: MainActions,
+    navController: NavHostController,
     showSubList: Boolean
 ) {
     val mealsState = viewModel.mealsState.value
@@ -60,7 +62,7 @@ fun MealsGridSection(
                         MealItem(
                             meal = meal,
                             onItemClick = {
-                                actions.gotoDetailsScreen
+                                navController.navigate(Screens.DetailScreen.withArgs(meal.idMeal))
                             }
                         )
                     }

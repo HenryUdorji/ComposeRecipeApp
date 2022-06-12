@@ -1,6 +1,5 @@
 package com.hashconcepts.composerecipeapp.data.remote.usecases
 
-import com.hashconcepts.composerecipeapp.data.remote.dto.category.MealCategoriesDto
 import com.hashconcepts.composerecipeapp.data.remote.dto.details.MealDetailsDto
 import com.hashconcepts.composerecipeapp.data.remote.repository.MealsRepository
 import com.hashconcepts.composerecipeapp.util.Resource
@@ -18,7 +17,7 @@ import javax.inject.Inject
 class FetchMealDetailsUseCase @Inject constructor(
     private val repository: MealsRepository
 ) {
-    operator fun invoke(id: Int): Flow<Resource<MealDetailsDto>> = flow {
+    operator fun invoke(id: String): Flow<Resource<MealDetailsDto>> = flow {
         try {
             emit(Resource.Loading())
             val response = repository.fetchMealDetails(id)

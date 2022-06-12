@@ -1,6 +1,9 @@
 package com.hashconcepts.composerecipeapp.ui.screens.details
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 
 /**
@@ -10,7 +13,13 @@ import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
  */
 @Composable
 fun DetailScreen(
-    actions: MainActions,
+    navController: NavHostController,
     mealId: String
 ) {
+    val viewModel = hiltViewModel<DetailViewModel>()
+    val detailScreenState = viewModel.detailScreenState.value
+
+    LaunchedEffect(true) {
+        viewModel.fetchMealDetail(mealId)
+    }
 }

@@ -31,13 +31,13 @@ import com.hashconcepts.composerecipeapp.ui.theme.White
 @Composable
 fun MealItem(
     meal: Meal,
-    onItemClick: (String) -> Unit
+    onItemClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
             .clip(RoundedCornerShape(20.dp))
             .background(White)
-            .clickable { onItemClick.invoke(meal.idMeal) }
+            .clickable(onClick = onItemClick)
     ) {
         Column {
             AsyncImage(

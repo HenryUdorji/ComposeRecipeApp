@@ -18,7 +18,7 @@ class MealRepositoryImpl @Inject constructor(
         return mealApi.fetchMealCategories()
     }
 
-    override suspend fun fetchMealDetails(id: Int): MealDetailsDto {
+    override suspend fun fetchMealDetails(id: String): MealDetailsDto {
         return mealApi.fetchMealDetail(id)
     }
 

@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface MealApi {
 
     @GET("lookup.php")
-    suspend fun fetchMealDetail(@Query("i") id: Int): MealDetailsDto
+    suspend fun fetchMealDetail(@Query("i") id: String): MealDetailsDto
 
     @GET("categories.php")
     suspend fun fetchMealCategories(): MealCategoriesDto

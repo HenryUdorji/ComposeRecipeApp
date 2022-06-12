@@ -4,9 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.CircularProgressIndicator
@@ -20,13 +17,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.ui.components.MealCategoryItem
-import com.hashconcepts.composerecipeapp.ui.components.MealItem
-import com.hashconcepts.composerecipeapp.ui.components.MealsGridSection
 import com.hashconcepts.composerecipeapp.ui.components.SearchBar
 import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
+import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.theme.*
 
 /**
@@ -37,7 +34,7 @@ import com.hashconcepts.composerecipeapp.ui.theme.*
 
 @Composable
 fun HomeScreen(
-    actions: MainActions
+    navController: NavHostController
 ) {
     val systemUiController = rememberSystemUiController()
 
@@ -127,7 +124,7 @@ fun HomeScreen(
                     modifier = Modifier.clickable {
                         val selectedCategory = homeScreenState.mealCategories[selectedIndex].strCategory
                         if (selectedCategory.isNotEmpty()) {
-                            actions.gotoViewMoreScreen(selectedCategory)
+                            navController.navigate(Screens.ViewMoreScreen.withArgs(selectedCategory))
                         }
                     }
                 )
@@ -139,7 +136,7 @@ fun HomeScreen(
                     category = selectedCategory,
                     viewModel = viewModel,
                     modifier = Modifier.weight(1f),
-                    actions = actions,
+                    navController = navController,
                     showSubList = true
                 )
             }
@@ -170,7 +167,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     ComposeRecipeAppTheme {
-        val action = MainActions(rememberNavController())
-        HomeScreen(action)
+        HomeScreen(rememberNavController())
     }
 }

@@ -11,6 +11,6 @@ import com.hashconcepts.composerecipeapp.data.remote.dto.mealByCategory.MealByCa
  */
 interface MealsRepository {
     suspend fun fetchMealCategories(): MealCategoriesDto
-    suspend fun fetchMealDetails(id: Int): MealDetailsDto
+    suspend fun fetchMealDetails(id: String): MealDetailsDto
     suspend fun filterMealByCategory(category: String): MealByCategoryDto
 }

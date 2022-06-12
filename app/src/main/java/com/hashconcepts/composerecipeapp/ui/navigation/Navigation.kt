@@ -1,6 +1,5 @@
 package com.hashconcepts.composerecipeapp.ui.navigation
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
@@ -26,17 +25,16 @@ import com.hashconcepts.composerecipeapp.util.Constants.ARGS_MEAL_ID
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
-    val actions = remember(navController) { MainActions(navController) }
 
     NavHost(navController = navController, startDestination = Screens.SplashScreen.route) {
         composable(Screens.SplashScreen.route) {
             SplashScreen(navController)
         }
         composable(Screens.OnBoardingScreen.route) {
-            OnBoardingScreen(actions)
+            OnBoardingScreen(navController)
         }
         composable(Screens.HomeScreen.route) {
-            HomeScreen(actions)
+            HomeScreen(navController)
         }
         composable(
             route = Screens.ViewMoreScreen.route + "/{$ARGS_CATEGORY}",
@@ -47,7 +45,7 @@ fun Navigation() {
             )
         ) { entry ->
             val category = entry.arguments?.getString(ARGS_CATEGORY).toString()
-            ViewMoreScreen(actions, category)
+            ViewMoreScreen(navController, category)
         }
         composable(
             route = Screens.DetailScreen.route + "/{$ARGS_MEAL_ID}",
@@ -58,32 +56,7 @@ fun Navigation() {
             )
         ) { entry ->
             val mealId = entry.arguments?.getString(ARGS_MEAL_ID).toString()
-            DetailScreen(actions, mealId)
+            DetailScreen(navController, mealId)
         }
-    }
-}
-
-class MainActions(private val navController: NavHostController) {
-
-    val popBackStack: () -> Unit = {
-        navController.popBackStack()
-    }
-
-    val gotoOnBoardingScreen: () -> Unit = {
-        navController.popBackStack()
-        navController.navigate(Screens.OnBoardingScreen.route)
-    }
-
-    val gotoHomeScreen: () -> Unit = {
-        navController.popBackStack()
-        navController.navigate(Screens.HomeScreen.route)
-    }
-
-    val gotoDetailsScreen: (String) -> Unit = { mealId ->
-        navController.navigate(Screens.DetailScreen.withArgs(mealId))
-    }
-
-    val gotoViewMoreScreen: (String) -> Unit = { category ->
-        navController.navigate(Screens.ViewMoreScreen.withArgs(category))
     }
 }

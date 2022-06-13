@@ -1,5 +1,5 @@
 package com.hashconcepts.composerecipeapp.data.remote.dto.mealByCategory
 
 data class MealByCategoryDto(
-    val meals: List<Meal>
+    val meals: List<MealDto>
 )

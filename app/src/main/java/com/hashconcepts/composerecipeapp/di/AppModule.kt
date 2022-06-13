@@ -1,16 +1,10 @@
 package com.hashconcepts.composerecipeapp.di
 
-import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.hashconcepts.composerecipeapp.data.remote.MealApi
-import com.hashconcepts.composerecipeapp.data.remote.repository.MealRepositoryImpl
-import com.hashconcepts.composerecipeapp.data.remote.repository.MealsRepository
-import com.hashconcepts.composerecipeapp.data.remote.usecases.FetchMealCategoriesUseCase
-import com.hashconcepts.composerecipeapp.data.remote.usecases.FetchMealDetailsUseCase
-import com.hashconcepts.composerecipeapp.data.remote.usecases.FilterMealsByCategoryUseCase
+import com.hashconcepts.composerecipeapp.data.repository.MealRepositoryImpl
+import com.hashconcepts.composerecipeapp.domain.repository.MealsRepository
 import com.hashconcepts.composerecipeapp.util.Constants
 import dagger.Module
 import dagger.Provides

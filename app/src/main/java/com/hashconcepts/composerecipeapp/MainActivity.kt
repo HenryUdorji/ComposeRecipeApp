@@ -13,7 +13,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.hashconcepts.composerecipeapp.ui.theme.ComposeRecipeAppTheme
-import com.hashconcepts.composerecipeapp.ui.navigation.Navigation
+import com.hashconcepts.composerecipeapp.presentation.navigation.Navigation
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

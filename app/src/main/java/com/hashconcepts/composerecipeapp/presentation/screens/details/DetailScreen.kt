@@ -96,6 +96,7 @@ fun DetailScreen(
                                     modifier = Modifier.size(20.dp),
                                     painter = painterResource(id = R.drawable.ic_category),
                                     contentDescription = null,
+                                    tint = Color.Unspecified
                                 )
                                 Spacer(modifier = Modifier.width(15.dp))
                                 Text(

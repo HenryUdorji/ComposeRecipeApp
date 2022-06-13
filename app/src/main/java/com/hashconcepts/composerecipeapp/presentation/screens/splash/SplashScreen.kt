@@ -48,7 +48,9 @@ fun SplashScreen(
     }
 
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 50.dp)
     ) {
         Image(
             modifier = Modifier

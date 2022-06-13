@@ -81,6 +81,7 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:$accompanist_version"
     //System UI controller
     implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanist_version"
+    implementation "com.google.accompanist:accompanist-insets:$accompanist_version"
 
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1"

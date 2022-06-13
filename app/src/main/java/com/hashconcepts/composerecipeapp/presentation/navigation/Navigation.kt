@@ -52,7 +52,7 @@ fun Navigation() {
             )
         ) { entry ->
             val mealId = entry.arguments?.getString(ARGS_MEAL_ID).toString()
-            DetailScreen(navController, systemUiController, mealId)
+            DetailScreen(navController, systemUiController)
         }
     }
 }

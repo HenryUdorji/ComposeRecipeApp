@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
 import com.hashconcepts.composerecipeapp.ui.theme.ComposeRecipeAppTheme
 import com.hashconcepts.composerecipeapp.presentation.navigation.Navigation
@@ -22,6 +23,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeRecipeAppTheme {
+                WindowCompat.setDecorFitsSystemWindows(window, false)
                 Navigation()
                 LockScreenOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
             }

@@ -55,6 +55,7 @@ fun HomeScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(OffWhite)
+            .padding(vertical = 50.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.Start,

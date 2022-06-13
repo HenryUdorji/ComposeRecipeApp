@@ -42,7 +42,7 @@ fun ViewMoreScreen(
         modifier = Modifier
             .fillMaxSize()
             .background(OffWhite)
-            .padding(vertical = 15.dp)
+            .padding(vertical = 50.dp)
     ) {
         Column(
             horizontalAlignment = Alignment.Start,

@@ -1,9 +1,7 @@
 package com.hashconcepts.composerecipeapp.ui.screens.home
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import android.util.Log
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -18,7 +16,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.hashconcepts.composerecipeapp.ui.components.MealItem
-import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.theme.Red
 
@@ -28,23 +25,18 @@ import com.hashconcepts.composerecipeapp.ui.theme.Red
  * @author  ifechukwu.udorji
  */
 @Composable
-fun MealsGridSection(
-    modifier: Modifier = Modifier,
-    category: String,
-    viewModel: HomeViewModel,
-    navController: NavHostController,
-    showSubList: Boolean
+fun ColumnScope.MealsGridSection(
+    showSubList: Boolean,
+    onMealItemClick: (String) -> Unit,
+    onFilterMealByCategory: () -> HomeScreenState
 ) {
-    val mealsState = viewModel.mealsState.value
-
-    LaunchedEffect(key1 = true) {
-        viewModel.filterMealsByCategory(category)
-    }
+    val mealsState = onFilterMealByCategory.invoke()
 
     Box(
-        modifier
+        modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 15.dp)
+            .weight(1f)
     ) {
         if (mealsState.mealByCategory.isNotEmpty()) {
             val meals = if (showSubList) {
@@ -62,7 +54,7 @@ fun MealsGridSection(
                         MealItem(
                             meal = meal,
                             onItemClick = {
-                                navController.navigate(Screens.DetailScreen.withArgs(meal.idMeal))
+                                onMealItemClick(meal.idMeal)
                             }
                         )
                     }

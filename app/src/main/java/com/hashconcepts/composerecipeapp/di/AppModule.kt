@@ -35,12 +35,6 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesSharedPreferences(application: Application): SharedPreferences {
-        return application.getSharedPreferences("ComposeRecipe-pref", Context.MODE_PRIVATE)
-    }
-
-    @Provides
-    @Singleton
     fun providesHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
     }

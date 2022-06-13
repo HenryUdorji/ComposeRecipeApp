@@ -63,7 +63,7 @@ class HomeViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun filterMealsByCategory(category: String) {
+    private fun filterMealsByCategory(category: String) {
         filterMealsByCategoryUseCase(category).onEach { result ->
             when (result) {
                 is Resource.Loading -> {

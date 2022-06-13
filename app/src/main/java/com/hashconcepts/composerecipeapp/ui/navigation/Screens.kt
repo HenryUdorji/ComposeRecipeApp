@@ -8,7 +8,6 @@ import com.hashconcepts.composerecipeapp.util.Constants
  * @author  ifechukwu.udorji
  */
 sealed class Screens(val route: String) {
-    object OnBoardingScreen: Screens(Constants.ONBOARDING_ROUTE)
     object SplashScreen: Screens(Constants.SPLASH_ROUTE)
     object HomeScreen: Screens(Constants.HOME_ROUTE)
     object DetailScreen: Screens(Constants.DETAIL_ROUTE)

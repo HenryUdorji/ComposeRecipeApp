@@ -19,12 +19,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.ui.components.MealCategoryItem
 import com.hashconcepts.composerecipeapp.ui.components.SearchBar
-import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.theme.*
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 /**
  * @created 08/06/2022 - 2:09 PM
@@ -34,10 +36,9 @@ import com.hashconcepts.composerecipeapp.ui.theme.*
 
 @Composable
 fun HomeScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    systemUiController: SystemUiController
 ) {
-    val systemUiController = rememberSystemUiController()
-
     SideEffect {
         systemUiController.setNavigationBarColor(color = OffWhite)
         systemUiController.setStatusBarColor(color = OffWhite)
@@ -47,6 +48,8 @@ fun HomeScreen(
     val homeScreenState = viewModel.mealCategoriesState.value
 
     var selectedIndex by remember { mutableStateOf(viewModel.savedPosition) }
+
+    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -133,11 +136,17 @@ fun HomeScreen(
             if (homeScreenState.mealCategories.isNotEmpty()) {
                 val selectedCategory = homeScreenState.mealCategories[selectedIndex].strCategory
                 MealsGridSection(
-                    category = selectedCategory,
-                    viewModel = viewModel,
-                    modifier = Modifier.weight(1f),
-                    navController = navController,
-                    showSubList = true
+                    showSubList = true,
+                    onMealItemClick = { mealId ->
+                        navController.navigate(Screens.DetailScreen.withArgs(mealId))
+                    },
+                    onFilterMealByCategory = {
+                        coroutineScope.launch {
+                            viewModel.onAction(HomeScreenEvents.OnCategorySelected(selectedCategory))
+                            coroutineScope.cancel()
+                        }
+                        viewModel.mealsState.value
+                    }
                 )
             }
         }
@@ -167,6 +176,6 @@ fun HomeScreen(
 @Composable
 fun HomeScreenPreview() {
     ComposeRecipeAppTheme {
-        HomeScreen(rememberNavController())
+        HomeScreen(rememberNavController(), rememberSystemUiController())
     }
 }

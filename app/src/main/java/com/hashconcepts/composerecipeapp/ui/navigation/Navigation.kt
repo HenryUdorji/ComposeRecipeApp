@@ -1,17 +1,15 @@
 package com.hashconcepts.composerecipeapp.ui.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.hashconcepts.composerecipeapp.ui.screens.details.DetailScreen
 import com.hashconcepts.composerecipeapp.ui.screens.home.HomeScreen
 import com.hashconcepts.composerecipeapp.ui.screens.home.ViewMoreScreen
-import com.hashconcepts.composerecipeapp.ui.screens.onboarding.OnBoardingScreen
 import com.hashconcepts.composerecipeapp.ui.screens.splash.SplashScreen
 import com.hashconcepts.composerecipeapp.util.Constants.ARGS_CATEGORY
 import com.hashconcepts.composerecipeapp.util.Constants.ARGS_MEAL_ID
@@ -25,16 +23,14 @@ import com.hashconcepts.composerecipeapp.util.Constants.ARGS_MEAL_ID
 @Composable
 fun Navigation() {
     val navController = rememberNavController()
+    val systemUiController = rememberSystemUiController()
 
     NavHost(navController = navController, startDestination = Screens.SplashScreen.route) {
         composable(Screens.SplashScreen.route) {
-            SplashScreen(navController)
-        }
-        composable(Screens.OnBoardingScreen.route) {
-            OnBoardingScreen(navController)
+            SplashScreen(navController, systemUiController)
         }
         composable(Screens.HomeScreen.route) {
-            HomeScreen(navController)
+            HomeScreen(navController, systemUiController)
         }
         composable(
             route = Screens.ViewMoreScreen.route + "/{$ARGS_CATEGORY}",
@@ -45,7 +41,7 @@ fun Navigation() {
             )
         ) { entry ->
             val category = entry.arguments?.getString(ARGS_CATEGORY).toString()
-            ViewMoreScreen(navController, category)
+            ViewMoreScreen(navController, systemUiController, category)
         }
         composable(
             route = Screens.DetailScreen.route + "/{$ARGS_MEAL_ID}",
@@ -56,7 +52,7 @@ fun Navigation() {
             )
         ) { entry ->
             val mealId = entry.arguments?.getString(ARGS_MEAL_ID).toString()
-            DetailScreen(navController, mealId)
+            DetailScreen(navController, systemUiController, mealId)
         }
     }
 }

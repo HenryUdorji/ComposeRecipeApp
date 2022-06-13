@@ -16,10 +16,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.hashconcepts.composerecipeapp.R
-import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
 import com.hashconcepts.composerecipeapp.ui.navigation.Screens
-import com.hashconcepts.composerecipeapp.ui.screens.onboarding.OnBoardingViewModel
+import com.hashconcepts.composerecipeapp.ui.theme.OffWhite
 import com.hashconcepts.composerecipeapp.ui.theme.Red
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -34,17 +34,17 @@ import kotlinx.coroutines.launch
 @Composable
 fun SplashScreen(
     navController: NavHostController,
-    viewModel: OnBoardingViewModel = hiltViewModel()
+    systemUiController: SystemUiController
 ) {
+    SideEffect {
+        systemUiController.setNavigationBarColor(color = OffWhite)
+        systemUiController.setStatusBarColor(color = OffWhite)
+    }
+
     LaunchedEffect(key1 = true) {
-        delay(3000)
-        if (!viewModel.showOnboarding) {
-            navController.popBackStack()
-            navController.navigate(Screens.OnBoardingScreen.route)
-        } else {
-            navController.popBackStack()
-            navController.navigate(Screens.HomeScreen.route)
-        }
+        delay(2000)
+        navController.popBackStack()
+        navController.navigate(Screens.HomeScreen.route)
     }
 
     Box(

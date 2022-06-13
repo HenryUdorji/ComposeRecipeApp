@@ -11,9 +11,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.google.accompanist.systemuicontroller.SystemUiController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.hashconcepts.composerecipeapp.ui.navigation.MainActions
+import com.hashconcepts.composerecipeapp.ui.navigation.Screens
 import com.hashconcepts.composerecipeapp.ui.theme.*
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.launch
 
 /**
  * @created 08/06/2022 - 2:09 PM
@@ -24,16 +27,16 @@ import com.hashconcepts.composerecipeapp.ui.theme.*
 @Composable
 fun ViewMoreScreen(
     navController: NavHostController,
+    systemUiController: SystemUiController,
     category: String
 ) {
-    val systemUiController = rememberSystemUiController()
-
     SideEffect {
         systemUiController.setNavigationBarColor(color = OffWhite)
         systemUiController.setStatusBarColor(color = OffWhite)
     }
 
     val viewModel = hiltViewModel<HomeViewModel>()
+    val coroutineScope = rememberCoroutineScope()
 
     Box(
         modifier = Modifier
@@ -54,13 +57,19 @@ fun ViewMoreScreen(
             )
 
             Spacer(modifier = Modifier.height(10.dp))
-            
+
             MealsGridSection(
-                category = category,
-                viewModel = viewModel,
-                modifier = Modifier.weight(1f),
-                navController = navController,
-                showSubList = false
+                showSubList = false,
+                onMealItemClick = { mealId ->
+                    navController.navigate(Screens.DetailScreen.withArgs(mealId))
+                },
+                onFilterMealByCategory = {
+                    coroutineScope.launch {
+                        viewModel.onAction(HomeScreenEvents.OnCategorySelected(category))
+                        coroutineScope.cancel()
+                    }
+                    viewModel.mealsState.value
+                }
             )
         }
     }

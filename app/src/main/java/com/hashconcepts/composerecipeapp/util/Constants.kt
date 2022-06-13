@@ -7,8 +7,6 @@ package com.hashconcepts.composerecipeapp.util
  */
 object Constants {
     const val BASE_URL = "https://www.themealdb.com/api/json/v1/1/"
-    const val ONBOARDING_SHOWN = "onboarding_shown"
-    const val ONBOARDING_ROUTE = "OnBoarding"
     const val SPLASH_ROUTE = "Splash"
     const val HOME_ROUTE = "Home"
     const val DETAIL_ROUTE = "Detail"

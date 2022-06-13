@@ -80,9 +80,7 @@ fun HomeScreen(
                 modifier = Modifier.padding(horizontal = 15.dp)
             )
 
-            val listState = rememberLazyListState()
             LazyRow(
-                state = listState,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 15.dp),

@@ -9,10 +9,12 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
+import com.hashconcepts.composerecipeapp.R
 import com.hashconcepts.composerecipeapp.ui.screens.home.HomeScreen
 import com.hashconcepts.composerecipeapp.ui.theme.*
 
@@ -30,7 +32,9 @@ fun SearchBar(
     TextField(
         value = text,
         onValueChange = onValueChange,
-        modifier = Modifier.fillMaxWidth().padding(horizontal = 15.dp),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp),
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = InactiveCategory,
             focusedIndicatorColor = Color.Transparent,
@@ -48,7 +52,7 @@ fun SearchBar(
         },
         leadingIcon = {
             Icon(
-                imageVector = Icons.Filled.Search,
+                painter = painterResource(id = R.drawable.ic_search),
                 contentDescription = "Search",
                 tint = Red
             )

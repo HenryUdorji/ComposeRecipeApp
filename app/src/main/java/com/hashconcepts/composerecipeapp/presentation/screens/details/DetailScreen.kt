@@ -1,25 +1,24 @@
 package com.hashconcepts.composerecipeapp.presentation.screens.details
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Info
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -30,12 +29,14 @@ import coil.compose.AsyncImage
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.systemuicontroller.SystemUiController
 import com.hashconcepts.composerecipeapp.R
+import com.hashconcepts.composerecipeapp.domain.models.MealDetail
+import com.hashconcepts.composerecipeapp.presentation.components.IngredientsItem
 import com.hashconcepts.composerecipeapp.ui.theme.Black
 import com.hashconcepts.composerecipeapp.ui.theme.OffWhite
 import com.hashconcepts.composerecipeapp.ui.theme.Red
 import com.hashconcepts.composerecipeapp.ui.theme.White
-import kotlinx.coroutines.cancel
-import kotlinx.coroutines.launch
+import com.hashconcepts.composerecipeapp.util.watchYoutubeVideo
+
 
 /**
  * @created 12/06/2022 - 9:17 PM
@@ -57,38 +58,41 @@ fun DetailScreen(
 
         val detailScreenState = viewModel.detailScreenState.value
 
+        val context = LocalContext.current
 
         Box(
             modifier = Modifier
                 .fillMaxSize()
                 .background(OffWhite)
+                .padding(bottom = 50.dp)
         ) {
             detailScreenState.mealDetail?.let { mealDetail ->
-                LazyColumn(content = {
-                    item {
-                        AsyncImage(
-                            model = mealDetail.strMealThumb,
-                            contentDescription = null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(250.dp),
-                            contentScale = ContentScale.Crop
-                        )
-
-                        Spacer(modifier = Modifier.width(15.dp))
-
-                        Column(
-                            modifier = Modifier
-                                .fillMaxSize()
-                                .padding(horizontal = 15.dp)
-                        ) {
+                LazyColumn(modifier = Modifier
+                    .fillMaxSize(),
+                    content = {
+                        item {
+                            AsyncImage(
+                                model = mealDetail.strMealThumb,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(250.dp),
+                                contentScale = ContentScale.Crop
+                            )
+                        }
+                        item {
+                            Spacer(modifier = Modifier.height(10.dp))
                             Text(
                                 text = mealDetail.strMeal,
                                 style = MaterialTheme.typography.h1,
                                 fontSize = 20.sp,
-                                color = Black
+                                color = Black,
+                                modifier = Modifier.padding(horizontal = 15.dp)
                             )
+
+                            Spacer(modifier = Modifier.height(5.dp))
                             Row(
+                                modifier = Modifier.padding(horizontal = 15.dp),
                                 horizontalArrangement = Arrangement.Start,
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
@@ -105,8 +109,44 @@ fun DetailScreen(
                                 )
                             }
                         }
-                    }
-                })
+
+                        item {
+                            Spacer(modifier = Modifier.height(20.dp))
+                            IngredientSection(mealDetail, viewModel)
+                        }
+
+                        item {
+                            Spacer(modifier = Modifier.height(20.dp))
+                            InstructionSection(mealDetail)
+                        }
+
+                        item {
+                            Button(
+                                elevation = ButtonDefaults.elevation(defaultElevation = 0.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Red,
+                                    contentColor = White
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(
+                                        top = 20.dp,
+                                        bottom = 10.dp,
+                                        start = 10.dp,
+                                        end = 10.dp
+                                    ),
+                                shape = RoundedCornerShape(5.dp),
+                                onClick = {
+                                   watchYoutubeVideo(context, mealDetail.strYoutube)
+                                }) {
+                                Text(
+                                    text = "Watch Video",
+                                    style = MaterialTheme.typography.body1,
+                                    color = White
+                                )
+                            }
+                        }
+                    })
             }
 
             if (detailScreenState.error.isNotBlank()) {
@@ -131,3 +171,54 @@ fun DetailScreen(
     }
 
 }
+
+@Composable
+fun InstructionSection(mealDetail: MealDetail) {
+    Column(
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp)
+    ) {
+        Text(
+            text = "Instructions",
+            style = MaterialTheme.typography.h2,
+            fontSize = 20.sp,
+            color = Black
+        )
+
+        Text(
+            text = mealDetail.strInstructions,
+            style = MaterialTheme.typography.body1,
+        )
+    }
+}
+
+@Composable
+fun IngredientSection(mealDetail: MealDetail, viewModel: DetailViewModel) {
+    Column(
+        horizontalAlignment = Alignment.Start,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 15.dp)
+            .height(200.dp)
+    ) {
+        Text(
+            text = "Ingredients",
+            style = MaterialTheme.typography.h2,
+            fontSize = 20.sp,
+            color = Black
+        )
+        LazyVerticalGrid(
+            verticalArrangement = Arrangement.spacedBy(20.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            columns = GridCells.Fixed(2),
+            content = {
+                items(viewModel.extractIngredientsFromDetails(mealDetail)) { ingredient ->
+                    IngredientsItem(ingredient = ingredient)
+                }
+            })
+    }
+}
+
+

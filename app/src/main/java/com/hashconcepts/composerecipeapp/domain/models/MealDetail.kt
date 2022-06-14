@@ -23,7 +23,7 @@ data class MealDetail(
     val strIngredient7: String?,
     val strIngredient8: String?,
     val strIngredient9: String?,
-    val strInstructions: String?,
+    val strInstructions: String,
     val strMeal: String,
     val strMealThumb: String?,
     val strYoutube: String

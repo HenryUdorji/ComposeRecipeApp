@@ -35,7 +35,7 @@ fun ColumnScope.MealsGridSection(
             .weight(1f)
     ) {
         if (mealsState.mealsByCategory.isNotEmpty()) {
-            val meals = if (showSubList) {
+            val meals = if (showSubList && mealsState.mealsByCategory.size > 10) {
                 mealsState.mealsByCategory.subList(0, 10)
             } else {
                 mealsState.mealsByCategory

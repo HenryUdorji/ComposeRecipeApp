@@ -14,4 +14,4 @@ The compose UI isn't great but it is a start.
 
 ##Todo
 - Implement search feature
-- 
+- Show placeholders for loading images
